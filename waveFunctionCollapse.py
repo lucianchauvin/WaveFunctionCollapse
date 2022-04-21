@@ -1,14 +1,24 @@
 import random
 
+from regex import R
+
 wfc = {
     "A": {
-        "img": "",
-        "adjacency": [["A"], ["A","B"], ["A"], ["A","B"]],
+        "img": "╬",
+        "adjacency": [["A","C"], ["A","B"], ["A", "C"], ["A","B"]],
     },
     "B": {
-        "img": "",
-        "adjacency": [["B"], ["A", "B"], ["B"], ["A", "B"]],
+        "img": "═",
+        "adjacency": [["B","D"], ["A", "B"], ["B","D"], ["A", "B"]],
     },
+    "C":{
+        "img": "║",
+        "adjacency": [["C","A"], ["C","D"], ["C","A"], ["C","D"]],
+    },
+    "D":{
+        "img": " ",
+        "adjacency": [["B","D"], ["C","D"], ["B","D"], ["C","D"]],
+    }
 }
 
 
@@ -42,11 +52,13 @@ def printTiles(tiles):
         print(row)
 
 
-tiles = [[None for x in range(10)] for x in range(10)]
+tiles = [[None for x in range(50)] for x in range(20)]
 
-tiles[0][0] = "B"
+tiles[0][0] = random.choice(list(wfc))  
 
-for(x, y) in [(x, y) for x in range(10) for y in range(10)]:
+for(x, y) in [(x, y) for x in range(50) for y in range(20)]:
     tiles[y][x] = collapse(tiles, x, y)
 
-printTiles(tiles)
+tilesWithImg = "\n".join(["".join([wfc[tile]["img"] for tile in row]) for row in tiles])
+
+print(tilesWithImg[random.randint(0, (len(tilesWithImg)-1)^2)])
