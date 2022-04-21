@@ -1,6 +1,8 @@
+import imghdr
 import random
 
 from regex import R
+from sympy import to_cnf
 
 wfc = {
     "A": {
@@ -9,7 +11,7 @@ wfc = {
     },
     "B": {
         "img": "═",
-        "adjacency": [["B","D"], ["A", "B"], ["B","D"], ["A", "B"]],
+        "adjacency": [["B","D"], ["A", "B", ], ["B","D", ], ["A", "B"]],
     },
     "C":{
         "img": "║",
@@ -18,7 +20,7 @@ wfc = {
     "D":{
         "img": " ",
         "adjacency": [["B","D"], ["C","D"], ["B","D"], ["C","D"]],
-    }
+    },
 }
 
 
@@ -52,13 +54,13 @@ def printTiles(tiles):
         print(row)
 
 
-tiles = [[None for x in range(50)] for x in range(20)]
+tiles = [[None for x in range(125)] for x in range(20)]
 
 tiles[0][0] = random.choice(list(wfc))  
 
-for(x, y) in [(x, y) for x in range(50) for y in range(20)]:
+for(x, y) in [(x, y) for x in range(125) for y in range(20)]:
     tiles[y][x] = collapse(tiles, x, y)
 
 tilesWithImg = "\n".join(["".join([wfc[tile]["img"] for tile in row]) for row in tiles])
 
-print(tilesWithImg[random.randint(0, (len(tilesWithImg)-1)^2)])
+print(tilesWithImg)
