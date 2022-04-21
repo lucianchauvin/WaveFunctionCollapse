@@ -7,30 +7,32 @@ wfc = {
     },
     "B": {
         "img": "bar.png",
-        "adjacency": [["A", "B"], ["B"], ["A", "B"], ["B"]],
+        "adjacency": [["A", "B"], ["B", "C"], ["A", "B"], ["B"]],
     },
-    # "C": {
-    #     "img": "corrner.png",
-    #     "adjacency": [["A", "B"], ["A"], [], ["B"]],
-    # },
+    "C": {
+        "img": "corrner.png",
+        "adjacency": [["A", "B"], ["A"], [], ["B"]],
+    },
 }
 
 
 def collapse(tiles, x, y):
-    possibleStates = wfc.copy()
-
-    if tiles[y][x] is not None:
+    if(tiles[y][x] != None):
         return tiles[y][x]
 
-    idkHowToExplainThis = [(0, 1), (1, 0), (0, -1), (-1, 0)]
-    for direction in enumerate(idkHowToExplainThis):
-        try:
+    possibleStates = wfc.copy()
+
+    idkHowToExplainThis = [(2, (0, 1)), (3, (1, 0)), (0, (0, -1)), (1,(-1, 0))]
+
+    
+    for direction in idkHowToExplainThis:
+        if y < len(tiles)-1 and x < len(tiles[0])-1:
             tile = tiles[y+direction[1][1]][x+direction[1][0]]
-            for state in wfc:
-                if state not in wfc[tile]["adjacency"][direction[0]] and state in possibleStates:
-                    possibleStates.pop(state)
-        except:
-            pass
+            if tile is not None:
+                for state in wfc:
+                    print(state, wfc[tile]["adjacency"][direction[0]])
+                    if state not in wfc[tile]["adjacency"][direction[0]]  and state in possibleStates:
+                        possibleStates.pop(state)
 
     if len(possibleStates) == 0:
         print("NO POSSIBLE STATES")
@@ -41,12 +43,7 @@ def collapse(tiles, x, y):
 
 def printTiles(tiles):
     for row in tiles:
-        for tile in row:
-            if tile is None:
-                print(" ", end="")
-            else:
-                print(tile, end="")
-        print()
+        print(row)
 
 
 tiles = [[None for x in range(10)] for x in range(10)]
@@ -57,3 +54,6 @@ for(x, y) in [(x, y) for x in range(10) for y in range(10)]:
     tiles[y][x] = collapse(tiles, x, y)
 
 printTiles(tiles)
+
+
+# print(collapse(tiles, 1, 0))
