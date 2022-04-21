@@ -7,11 +7,11 @@ from sympy import to_cnf
 wfc = {
     "A": {
         "img": "╬",
-        "adjacency": [["A","C"], ["A","B"], ["A", "C"], ["A","B"]],
+        "adjacency": [["A","C" ], ["A","B" ], ["A", "C"], ["A","B"]],
     },
     "B": {
         "img": "═",
-        "adjacency": [["B","D"], ["A", "B", ], ["B","D", ], ["A", "B"]],
+        "adjacency": [["B","D"], ["A", "B", "E"], ["B","D"], ["A", "B"]],
     },
     "C":{
         "img": "║",
@@ -21,6 +21,14 @@ wfc = {
         "img": " ",
         "adjacency": [["B","D"], ["C","D"], ["B","D"], ["C","D"]],
     },
+    "E":{
+        "img": "╣",
+        "adjacency": [["C","A"], ["C","D"], ["C","A"], ["A","B"]],
+    },
+    "F":{
+        "img" : "╠",
+        "adjacency": [["C","E","A"], ["B","A","E"], ["a"], ["F","G"]],
+    }
 }
 
 
@@ -58,8 +66,9 @@ tiles = [[None for x in range(125)] for x in range(20)]
 
 tiles[0][0] = random.choice(list(wfc))  
 
-for(x, y) in [(x, y) for x in range(125) for y in range(20)]:
-    tiles[y][x] = collapse(tiles, x, y)
+for r in range(20):
+    for c in range(125):
+        tiles[r][c] = collapse(tiles, c, r)
 
 tilesWithImg = "\n".join(["".join([wfc[tile]["img"] for tile in row]) for row in tiles])
 
