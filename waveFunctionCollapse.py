@@ -77,16 +77,15 @@ def printTiles(tiles):
     for row in tiles:
         print(row)
 
+tiles = [[None for x in range(160)] for x in range(20)]
 
-tiles = [[None for x in range(167)] for x in range(20)]
-
-tiles[0][0] = "A"
+tiles[0][0] = "F"
 
 for r in range(20):
-    for c in range(167):
+    for c in range(160):
         tiles[r][c] = collapse(tiles, c, r)
 
 tilesWithImg = "\n".join(["".join([wfc[tile]["img"]
-                         for tile in row]) for row in tiles])
+                        for tile in row]) for row in tiles])
 
 print(tilesWithImg)
