@@ -37,5 +37,7 @@ def generateWaveFunction(img, n, m):
     with open("states.json", "w") as f:
         json.dump(states, f)
 
+    return states
+
 
 generateWaveFunction("img.png", 3, 3)
