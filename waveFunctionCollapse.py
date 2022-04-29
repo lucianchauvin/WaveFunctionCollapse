@@ -60,30 +60,11 @@ def generateStates(img, n, m):
 def generateWave(states, w, h):
     return [[list(states) for x in range(w)] for y in range(h)]
 
+#directions = [(2, (0, 1)), (3, (1, 0)),(0, (0, -1)), (1, (-1, 0))]
+
 
 def propogate(wave, states, x, y):  # broken https://www.youtube.com/watch?v=2SuvO4Gi7uY&t=766s
-    state = wave[y][x][0]
-    stack = [(x, y)]
-    counter = 0
-    while len(stack) > 0:
-        counter += 1
-        current = stack.pop(-1)
-
-        directions = [(2, (0, 1)), (3, (1, 0)),
-                      (0, (0, -1)), (1, (-1, 0))]
-        for d in enumerate(directions):
-            other = (current[0]+d[1][1][0], current[1]+d[1][1][1])
-            if other[0] >= 0 and other[0] <= len(wave[0])-1 and other[1] >= 0 and other[1] <= len(wave)-1:
-                otherPossibleAdj = wave[other[1]][other[0]].copy()
-                currentAdj = states[state]["adj"][d[0]]  # problem
-                if len(otherPossibleAdj) > 1:
-                    for otherState in otherPossibleAdj:
-                        if states[otherState]["adj"][d[1][0]] != currentAdj:
-                            otherPossibleAdj.remove(otherState)
-                            if other not in stack:
-                                stack.append(other)
-                    wave[other[1]][other[0]] = otherPossibleAdj
-    return wave
+    pass
 
 
 def collapse(wave, states, x, y):
