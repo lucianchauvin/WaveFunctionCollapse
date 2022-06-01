@@ -60,11 +60,12 @@ def generateStates(img, n, m):
 def generateWave(states, w, h):
     return [[list(states) for x in range(w)] for y in range(h)]
 
+
 #directions = [(2, (0, 1)), (3, (1, 0)),(0, (0, -1)), (1, (-1, 0))]
 
-
 def propogate(wave, states, x, y):  # broken https://www.youtube.com/watch?v=2SuvO4Gi7uY&t=766s
-    pass
+    print(wave)
+    return wave
 
 
 def collapse(wave, states, x, y):
@@ -81,22 +82,28 @@ def is_collapsed(wave):
 
 
 def getLeastEntropy(wave, states):
-    min = [x for x in range(len(states) + 1)]
+    min = 999999
+    minList = []
     for y in range(len(wave)):
         for x in range(len(wave[0])):
-            if len(wave[y][x]) < len(min):
-                min = wave[y][x]
-    return (x, y)
+            if len(wave[y][x]) < min:
+                min = len(wave[y][x])
+    for y in range(len(wave)):
+        for x in range(len(wave[0])):
+            if len(wave[y][x]) == min:
+                minList.append((x, y))
+
+    return random.choice(minList)
 
 
-def generateImage(wave, states, w, h, size):
-    img = Image.new("RGB", (w*size, h*size))
+def generateImage(wave, states, w, h, pixelSize):
+    img = Image.new("RGB", (w*pixelSize, h*pixelSize))
     for y in range(h):
         for x in range(w):
             if len(wave[y][x]) > 0:
                 state = wave[y][x][0]
                 img.paste(Image.open(states[state]["img"]),
-                          (x*size, y*size))
+                          (x*pixelSize, y*pixelSize))
     img.save("wave.png")
 
 
