@@ -5,5 +5,9 @@ Generates all posible states and adjacencies. Iterates through a 2D array, colla
 
 # Examples
 
-| Input        | Output
-| <img src="https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/mesh1.png" alt="drawing" width="200"/> | |     
+| Input         | Output        |
+| ------------- | ------------- |
+| ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/mesh1.png) | ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/wave1.png) |
+| ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/mesh2.png) | ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/wave2.png) |
+| ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/mesh3.png) | ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/wave3.png) |
+| ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/mesh4.png) | ![alt text](https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/Examples/wave4.png) |
