@@ -137,8 +137,8 @@ def printWave(wave):
 
 s = generateStates("mesh.png", 2, 1)
 
-width = 50
-height = 50
+width = 80
+height = 45
 
 wave = generateWave(s, width, height)
 
@@ -151,4 +151,4 @@ while not is_collapsed(wave):
     print(i*100/(width*height))
 
 printWave(wave)
-generateImage(wave, s, width, height, 3)
+generateImage(wave, s, width, height, 24)
