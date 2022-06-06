@@ -61,10 +61,31 @@ def generateWave(states, w, h):
     return [[list(states) for x in range(w)] for y in range(h)]
 
 
-#directions = [(2, (0, 1)), (3, (1, 0)),(0, (0, -1)), (1, (-1, 0))]
+#directions = [(2, (0, -1)), (3, (1, 0)),(0, (0, 1)), (1, (-1, 0))]
 
 def propogate(wave, states, x, y):  # broken https://www.youtube.com/watch?v=2SuvO4Gi7uY&t=766s
-    print(wave)
+    stack = []
+    stack.append((x, y))
+    directions = [(2, (0, -1)), (3, (1, 0)), (0, (0, 1)), (1, (-1, 0))]
+    while len(stack) > 0:
+        current = stack.pop(-1)
+        if len(wave[current[1]][current[0]]) == 1:
+            currentAdj = states[wave[current[1]][current[0]][0]]['adj']
+            for direction in enumerate(directions):
+                currentRelAdj = currentAdj[direction[0]]
+                other = (current[0] + direction[1][1][0],
+                         current[1] + direction[1][1][1])
+                if other[0] < len(wave[0]) and other[0] >= 0 and other[1] < len(wave) and other[1] >= 0:
+                    otherPos = wave[other[1]][other[0]].copy()
+                    for pos in wave[other[1]][other[0]]:
+                        posRelAdj = states[pos]['adj'][direction[1][0]]
+                        if currentRelAdj != posRelAdj:
+                            if len(otherPos) > 1:
+                                otherPos.remove(pos)
+                                if other not in stack:
+                                    stack.append(other)
+                    wave[other[1]][other[0]] = otherPos
+
     return wave
 
 
@@ -86,7 +107,7 @@ def getLeastEntropy(wave, states):
     minList = []
     for y in range(len(wave)):
         for x in range(len(wave[0])):
-            if len(wave[y][x]) < min:
+            if len(wave[y][x]) < min and len(wave[y][x]) != 1:
                 min = len(wave[y][x])
     for y in range(len(wave)):
         for x in range(len(wave[0])):
@@ -105,19 +126,29 @@ def generateImage(wave, states, w, h, pixelSize):
                 img.paste(Image.open(states[state]["img"]),
                           (x*pixelSize, y*pixelSize))
     img.save("wave.png")
+    img.show()
 
 
-s = generateStates("mesh.png", 3, 1)
+def printWave(wave):
+    for y in wave:
+        print(y)
+    print("\n")
 
-width = 4
-height = 5
+
+s = generateStates("mesh.png", 2, 1)
+
+width = 50
+height = 50
 
 wave = generateWave(s, width, height)
 
+i = 0
 while not is_collapsed(wave):
+    i += 1
     min = getLeastEntropy(wave, s)
     wave = collapse(wave, s, min[0], min[1])
     wave = propogate(wave, s, min[0], min[1])
+    print(i*100/(width*height))
 
-print(wave)
+printWave(wave)
 generateImage(wave, s, width, height, 3)
