@@ -6,4 +6,4 @@ Generates all posible states and adjacencies. Iterates through a 2D array, colla
 # Examples
 
 | Input        | Output
-|            
+| <img src="https://github.com/lucianchauvin/WaveFunctionCollapse/blob/master/mesh1.png" alt="drawing" width="200"/> | |     
